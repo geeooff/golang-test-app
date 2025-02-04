@@ -9,14 +9,17 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+
 jobs:
 
   build:
 
     strategy:
       matrix:
-        go-version: [ stable ]
         app: [ greetings, hello ]
+        go-version: [ stable ]
 
     runs-on: ubuntu-latest
 
@@ -43,4 +46,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: TestResults-${{ matrix.app }}-${{ matrix.go-version }}
-        path: TestResults-${{ matrix.app }}-${{ matrix.go-version }}.json
+        path: src/${{ matrix.app }}/TestResults-${{ matrix.app }}-${{ matrix.go-version }}.json
